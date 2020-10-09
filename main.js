@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 
 let scrape = async () => {
-  const USER_NAME = "YOU-USERNAME",
-    USER_PASSWORD = "YOU-PASSWORD",
+  const USER_NAME = "USERNAME",
+    USER_PASSWORD = "PASSWORD",
     ME_LINK = `https://www.instagram.com/${USER_NAME}/`;
 
   const TIME_START = new Date(),
@@ -18,7 +18,7 @@ let scrape = async () => {
     WAIT_FOR_SELECTOR_TIMEOUT = 0,
     DELAY_PRINT_INPUT = 100,
     DELAY_UPDATE_NEW_POST_HASH_TAG = 2500,
-    MAX_COUNT_FOLLOW_DAY = 150,
+    MAX_COUNT_FOLLOW_DAY = 260,
     INTERVAL_FOLLOW = (HOUR_IN_DAY * MINUTE_IN_HOUR * SECOND_IN_MINUTE * MILISECOND_IN_SECOND) / MAX_COUNT_FOLLOW_DAY;
 
   const LINKS_HASH_TAG = [
@@ -51,7 +51,8 @@ let scrape = async () => {
   let globalListMeFollowers = [],
     globalListMeFollowings = [],
     globalMeUser,
-    globalCountUserFollow = 0;
+    globalCountUserFollow = 0,
+    blackList = ["https://www.instagram.com/zrhsitb/"];
 
   const browser = await puppeteer.launch({
     headless: false,
@@ -187,7 +188,7 @@ let scrape = async () => {
             });
           });
           for (const link of listLinkUserComent) {
-            authorPostTag !== link && !globalMeUser.includes(link) && !listUser.includes(link) && listUser.push(link);
+            authorPostTag !== link && !globalMeUser.includes(link) && !listUser.includes(link) && !blackList.includes(link) && listUser.push(link);
           }
         } else break;
       }
