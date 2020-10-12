@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 
 let scrape = async () => {
-  const USER_NAME = "akitasocks",
-    USER_PASSWORD = "akitaakitademi",
+  const USER_NAME = "USERNAME",
+    USER_PASSWORD = "PASSWORD",
     ME_LINK = `https://www.instagram.com/${USER_NAME}/`;
 
   const TIME_START = new Date(),
