@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 
 let scrape = async () => {
-  const USER_NAME = "USERNAME",
-    USER_PASSWORD = "PASSWORD",
+  const USER_NAME = "akitasocks",
+    USER_PASSWORD = "akitaakitademi",
     ME_LINK = `https://www.instagram.com/${USER_NAME}/`;
 
   const TIME_START = new Date(),
@@ -18,7 +18,7 @@ let scrape = async () => {
     WAIT_FOR_SELECTOR_TIMEOUT = 0,
     DELAY_PRINT_INPUT = 100,
     DELAY_UPDATE_NEW_POST_HASH_TAG = 2500,
-    MAX_COUNT_FOLLOW_DAY = 260,
+    MAX_COUNT_FOLLOW_DAY = 300,
     INTERVAL_FOLLOW = (HOUR_IN_DAY * MINUTE_IN_HOUR * SECOND_IN_MINUTE * MILISECOND_IN_SECOND) / MAX_COUNT_FOLLOW_DAY;
 
   const LINKS_HASH_TAG = [
@@ -106,7 +106,7 @@ let scrape = async () => {
         const lengthList = await pageMe.$$eval(__meFollower, (user) => {
           return user.length;
         });
-        lengthList !== +count && (await scrollToBottom());
+        lengthList < +count - 1 && (await scrollToBottom());
       }
 
       await scrollToBottom();
@@ -223,7 +223,7 @@ let scrape = async () => {
     }
     await followUser();
 
-    globalCountUserFollow < COUNT_USER && (await searchUserCommentHashTag(++lobalIndexArrQuery, true));
+    globalCountUserFollow < MAX_COUNT_FOLLOW_DAY && (await searchUserCommentHashTag(++lobalIndexArrQuery, true));
   }
 
   await searchUserCommentHashTag(0, false);
